@@ -1,9 +1,23 @@
-from app.agent.graph import agent_graph
+import asyncio
 
-result = agent_graph.invoke(
-    {
-        "user_query": "چند تسک باز داریم؟"
-    }
+from app.agent.runtime import (
+    run_turn,
 )
 
-print(result["final_answer"])
+
+async def main():
+
+    result = await run_turn(
+        "چند تسک باز داریم؟"
+    )
+
+    print(
+        result.get("final_answer")
+    )
+
+
+if __name__ == "__main__":
+
+    asyncio.run(
+        main()
+    )

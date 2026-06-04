@@ -46,6 +46,7 @@ def filter_task_users(
                 title,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 
@@ -55,6 +56,7 @@ def filter_task_users(
                 description,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 
@@ -107,6 +109,7 @@ def filter_task_users(
                 user_name,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 

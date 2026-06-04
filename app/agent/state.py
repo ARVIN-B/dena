@@ -4,6 +4,7 @@ from typing_extensions import TypedDict
 
 class AgentState(TypedDict, total=False):
 
+    conversation_id: str
     user_query: str
     intent: str
     plan: list[dict]

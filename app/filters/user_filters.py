@@ -30,6 +30,7 @@ def filter_users(
                 fullname,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 

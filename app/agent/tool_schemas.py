@@ -85,9 +85,10 @@ TOOL_SCHEMAS = {
         "required": [
             "title",
             "description",
-            "assignee_id",
         ],
         "optional": [
+            "assignee_id",
+            "assignee_name",
             "priority",
             "status",
             "due_time",

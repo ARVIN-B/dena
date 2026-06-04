@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 from autogen_agentchat.agents import (
     AssistantAgent
@@ -18,6 +19,13 @@ from autogen_core import (
 
 
 load_dotenv()
+
+
+DEFAULT_SYSTEM_MESSAGE = """
+You are a helpful AI assistant.
+Answer accurately and concisely.
+"""
+
 
 class LLM:
 
@@ -45,21 +53,27 @@ class LLM:
             ),
         )
 
-        self.agent = AssistantAgent(
+    def _build_agent(
+        self,
+        system_message: str | None = None,
+    ):
+        return AssistantAgent(
             name="AgentLLM",
             model_client=self.model_client,
-            system_message="""
-            You are a helpful AI assistant.
-            Answer accurately and concisely.
-            """,
+            system_message=system_message or DEFAULT_SYSTEM_MESSAGE,
         )
 
     async def ask(
         self,
         prompt: str,
+        system_message: str | None = None,
     ):
 
-        response = await self.agent.on_messages(
+        agent = self._build_agent(
+            system_message=system_message,
+        )
+
+        response = await agent.on_messages(
 
             messages=[
                 TextMessage(
@@ -72,7 +86,30 @@ class LLM:
             CancellationToken(),
         )
 
-        return response.chat_message.content
+        content = response.chat_message.content
+
+        if isinstance(
+            content,
+            str,
+        ):
+            return content
+
+        if hasattr(
+            content,
+            "model_dump_json",
+        ):
+            return content.model_dump_json()
+
+        if hasattr(
+            content,
+            "model_dump",
+        ):
+            return json.dumps(
+                content.model_dump(),
+                ensure_ascii=False,
+            )
+
+        return str(content)
 
 
 llm = LLM()
@@ -80,12 +117,10 @@ llm = LLM()
 
 async def ask_llm(
     prompt: str,
-    system_message: str = None,
+    system_message: str | None = None,
 ):
 
-    if system_message:
-        llm.agent.system_message = system_message
-
     return await llm.ask(
-        prompt
+        prompt,
+        system_message=system_message,
     )

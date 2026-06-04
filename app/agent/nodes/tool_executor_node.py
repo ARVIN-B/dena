@@ -26,6 +26,51 @@ async def tool_executor_node(
                 "params",
                 {}
             )
+            effective_params = dict(
+                params
+            )
+
+            if (
+                tool_name == "create_task"
+                and not effective_params.get("assignee_id")
+                and not effective_params.get("assignee_name")
+            ):
+
+                for previous_result in reversed(
+                    tool_results
+                ):
+
+                    if not previous_result.get(
+                        "success"
+                    ):
+                        continue
+
+                    if previous_result.get(
+                        "tool"
+                    ) != "search":
+                        continue
+
+                    search_result = previous_result.get(
+                        "result",
+                        [],
+                    )
+
+                    if (
+                        isinstance(
+                            search_result,
+                            list,
+                        )
+                        and len(search_result) == 1
+                        and isinstance(
+                            search_result[0],
+                            dict,
+                        )
+                        and search_result[0].get("id") is not None
+                    ):
+                        effective_params[
+                            "assignee_id"
+                        ] = search_result[0]["id"]
+                        break
 
             if tool_name not in TOOLS:
 
@@ -50,14 +95,14 @@ async def tool_executor_node(
             try:
 
                 result = tool(
-                    **params
+                    **effective_params
                 )
 
                 tool_calls.append(
                     {
                         "step": index,
                         "tool": tool_name,
-                        "params": params,
+                        "params": effective_params,
                     }
                 )
 

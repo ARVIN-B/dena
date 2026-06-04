@@ -1,17 +1,16 @@
 import asyncio
 
-from app.agent.graph import (
-    build_graph,
+from app.agent.runtime import (
+    run_turn,
 )
-
-
-graph = build_graph()
 
 
 async def main():
 
     print("Agent Ready")
     print("type exit to quit")
+
+    conversation_id = None
 
     while True:
 
@@ -22,13 +21,13 @@ async def main():
         if query.lower() == "exit":
             break
 
-        result = await graph.ainvoke(
-            {
-                "user_query": query,
-                "memory_context": [],
-                "execution_history": [],
-                "metadata": {},
-            }
+        result = await run_turn(
+            query,
+            conversation_id=conversation_id,
+        )
+
+        conversation_id = result.get(
+            "conversation_id"
         )
 
         print(

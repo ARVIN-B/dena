@@ -146,6 +146,7 @@ def filter_tasks(
                 user_name,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 
@@ -160,6 +161,7 @@ def filter_tasks(
                 title,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 
@@ -169,6 +171,7 @@ def filter_tasks(
                 description,
                 case=False,
                 na=False,
+                regex=False,
             )
         ]
 

@@ -135,6 +135,17 @@ class ParameterResolver:
             len(missing_required) > 0
         )
 
+        if tool_name == "create_task":
+
+            if (
+                not resolved_params.get("assignee_id")
+                and not resolved_params.get("assignee_name")
+            ):
+                missing_required.append(
+                    "assignee"
+                )
+                clarification_needed = True
+
         clarification_question = ""
 
         if clarification_needed:
@@ -332,6 +343,8 @@ class ParameterResolver:
             "title": "عنوان",
             "description": "توضیحات",
             "assignee_id": "مسئول تسک",
+            "assignee_name": "نام مسئول",
+            "assignee": "مسئول تسک",
             "fullname": "نام کاربر",
             "department": "دپارتمان",
             "updates": "مقادیر بروزرسانی",
