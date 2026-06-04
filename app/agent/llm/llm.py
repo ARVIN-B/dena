@@ -76,3 +76,16 @@ class LLM:
 
 
 llm = LLM()
+
+
+async def ask_llm(
+    prompt: str,
+    system_message: str = None,
+):
+
+    if system_message:
+        llm.agent.system_message = system_message
+
+    return await llm.ask(
+        prompt
+    )

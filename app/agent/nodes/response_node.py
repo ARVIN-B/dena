@@ -1,7 +1,7 @@
 import json
 
 from app.agent.state import AgentState
-from app.llm.llm import ask_llm
+from app.agent.llm.llm import ask_llm
 
 
 RESPONSE_SYSTEM_PROMPT = """

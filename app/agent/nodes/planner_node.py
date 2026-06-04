@@ -93,6 +93,10 @@ async def planner_node(
             planner_prompt,
             system_message=PLANNER_SYSTEM_PROMPT,
         )
+        
+        print("\n========== LLM RESPONSE ==========")
+        print(llm_response)
+        print("==================================\n")
 
         raw_plan = json.loads(
             llm_response
