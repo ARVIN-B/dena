@@ -1,9 +1,34 @@
+from app.filters.task_filters import filter_tasks
+from app.filters.user_filters import filter_users
 from app.filters.task_user_filter import filter_task_users
 
-def search_tasks(**filters):
+from app.tools.constants import DataSource
 
-    tasks = filter_task_users(**filters)
 
-    return tasks.to_dict(
+FILTERS = {
+    DataSource.TASKS: filter_tasks,
+    DataSource.USERS: filter_users,
+    DataSource.TASK_USERS: filter_task_users,
+}
+
+
+def search(
+    source=DataSource.TASK_USERS,
+    **filters
+):
+
+    if isinstance(source, str):
+        source = DataSource(source)
+
+    if source not in FILTERS:
+        raise ValueError(
+            f"Unsupported source: {source}"
+        )
+
+    data = FILTERS[source](
+        **filters
+    )
+
+    return data.to_dict(
         orient="records"
     )

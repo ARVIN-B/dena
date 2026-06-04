@@ -1,9 +1,20 @@
-from typing import Optional
+from typing import Optional, Any, List
 from typing_extensions import TypedDict
 
 
-class AgentState(TypedDict):
+class AgentState(TypedDict, total=False):
+
     user_query: str
-    selected_tool: Optional[str]
-    tool_result: Optional[int]
-    final_answer: Optional[str]
+    intent: str
+    plan: list[dict]
+    current_step: int
+    tool_calls: list[dict]
+    tool_results: list[Any]
+    clarification_needed: bool
+    clarification_question: str
+    clarification_context: dict
+    final_answer: str
+    error: str
+    execution_history: list
+    memory_context: list
+    metadata: dict
