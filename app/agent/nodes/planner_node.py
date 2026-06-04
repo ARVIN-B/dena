@@ -1,5 +1,6 @@
 import json
 import re
+import logging
 
 from app.agent.state import AgentState
 from app.agent.parameter_resolver import ParameterResolver
@@ -11,6 +12,9 @@ from app.agent.tool_schemas import (
 )
 
 from app.agent.llm.llm import ask_llm
+
+
+logger = logging.getLogger(__name__)
 
 
 def _normalize_text(
@@ -373,9 +377,10 @@ async def planner_node(
                 system_message=PLANNER_SYSTEM_PROMPT,
             )
         
-        print("\n========== LLM RESPONSE ==========")
-        print(llm_response)
-        print("==================================\n")
+        logger.debug(
+            "Planner LLM response: %s",
+            llm_response,
+        )
 
         raw_plan = _parse_planner_response(
             llm_response

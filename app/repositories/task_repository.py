@@ -4,11 +4,15 @@ TASKS_FILE = "data/tasks.csv"
 
 
 def get_tasks():
-    return pd.read_csv(TASKS_FILE)
+    return pd.read_csv(
+        TASKS_FILE,
+        encoding="utf-8-sig",
+    )
 
 
 def save_tasks(tasks):
     tasks.to_csv(
         TASKS_FILE,
-        index=False
+        index=False,
+        encoding="utf-8-sig",
     )

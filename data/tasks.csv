@@ -1,5 +1,5 @@
-id,title,description,create_time,status,assignee_id,priority,due_time
-1,رفع باگ ورود کاربران,برطرف کردن باگ های api,2026/01/05,Done,1,High,2026/01/08
+﻿id,title,description,create_time,status,assignee_id,priority,due_time
+1,رفع باگ ورود کاربران,بررسی و رفع خطای لاگین در نسخه وب,2026/01/05,Done,1,High,2026/01/08
 2,پیاده سازی API احراز هویت,ایجاد سرویس JWT برای کاربران,2026/01/07,Done,2,Critical,2026/01/15
 3,طراحی داشبورد مدیریت,طراحی اولیه داشبورد مدیران سیستم,2026/01/10,In Progress,3,High,2026/06/15
 4,تهیه گزارش مالی دی ماه,آماده سازی گزارش هزینه های ماهانه,2026/01/12,Done,7,Medium,2026/01/20

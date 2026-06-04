@@ -1,0 +1,7 @@
+fastapi==0.136.3
+uvicorn==0.49.0
+autogen-agentchat==0.7.5
+autogen-ext==0.7.5
+autogen-core==0.7.5
+pandas==2.3.3
+python-dotenv==1.1.0
