@@ -1,4 +1,4 @@
-# Dena Task Agent
+# Agent
 
 یک Agent گفت‌وگومحور فارسی برای کار با داده‌های تسک و کاربر، ساخته‌شده با `LangGraph` و `AutoGen` و مجهز به:
 
